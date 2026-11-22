@@ -3,103 +3,58 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>DuckDuckGo — Search</title>
+  <title>DuckDuckGo Search</title>
 
   <style>
-    * { box-sizing: border-box; }
+    * {
+      box-sizing: border-box;
+    }
 
     body {
       margin: 0;
-      font-family: Arial, Helvetica, sans-serif;
+      min-height: 100vh;
+      background: #fff;
       color: #333;
-      background: #fff;
+      font-family: Arial, Helvetica, sans-serif;
     }
 
-    /* Chrome-style frame */
-    .tabs {
-      height: 40px;
-      display: flex;
-      align-items: end;
-      gap: 8px;
-      padding: 5px 10px 0;
-      background: #dee1e6;
-    }
-
-    .tab {
-      width: 230px;
-      height: 35px;
+    .top-links {
+      position: absolute;
+      top: 18px;
+      right: 24px;
       display: flex;
       align-items: center;
-      gap: 9px;
-      padding: 0 13px;
-      border-radius: 10px 10px 0 0;
-      background: #fff;
-      color: #444;
-      font-size: 13px;
+      gap: 20px;
+      font-size: 14px;
     }
 
-    .tab-mark {
-      width: 15px;
-      height: 15px;
-      border-radius: 50%;
-      background: #de5833;
+    .top-links a {
+      color: #555;
+      text-decoration: none;
     }
 
-    .tab-close { margin-left: auto; }
-
-    .toolbar {
-      height: 52px;
-      display: flex;
-      align-items: center;
-      gap: 13px;
-      padding: 0 16px;
-      background: #fff;
+    .top-links a:hover {
+      text-decoration: underline;
     }
 
-    .nav {
-      display: flex;
-      gap: 15px;
-      color: #5f6368;
-      font-size: 21px;
-    }
-
-    .address {
-      height: 35px;
-      flex: 1;
-      display: flex;
-      align-items: center;
-      gap: 9px;
-      padding: 0 14px;
-      border-radius: 20px;
-      background: #f1f3f4;
-      color: #5f6368;
-      font-size: 13px;
-    }
-
-    .address input {
-      width: 100%;
+    .menu-button {
       border: 0;
-      outline: 0;
       background: transparent;
-      font: inherit;
-      color: inherit;
+      color: #666;
+      font-size: 22px;
+      cursor: pointer;
     }
 
-    .browser-menu {
-      color: #5f6368;
-      font-size: 21px;
-    }
-
-    /* DuckDuckGo-inspired homepage */
     main {
-      min-height: calc(100vh - 92px);
+      width: 100%;
+      min-height: 100vh;
       display: flex;
       flex-direction: column;
       align-items: center;
-      padding: 19vh 20px 40px;
+      padding: 21vh 20px 50px;
     }
 
-    .brand {
+    .logo {
       display: flex;
       align-items: center;
       gap: 7px;
@@ -116,7 +71,7 @@
       letter-spacing: 0;
     }
 
-    .search {
+    .search-form {
       width: min(100%, 630px);
       height: 52px;
       display: flex;
@@ -127,14 +82,15 @@
       box-shadow: 0 1px 3px #00000012;
     }
 
-    .search:focus-within {
+    .search-form:focus-within {
       border-color: #999;
-      box-shadow: 0 2px 6px #00000020;
+      box-shadow: 0 2px 7px #00000020;
     }
 
-    .search input {
+    .search-form input {
       flex: 1;
       min-width: 0;
+      height: 100%;
       border: 0;
       outline: 0;
       background: transparent;
@@ -142,90 +98,90 @@
       font-size: 16px;
     }
 
-    .search button {
+    .search-form button {
       width: 40px;
       height: 40px;
       border: 0;
       border-radius: 50%;
       background: #de5833;
-      color: white;
-      font-size: 20px;
+      color: #fff;
+      font-size: 21px;
       cursor: pointer;
     }
 
-    .tagline {
+    .privacy-message {
       margin-top: 22px;
       color: #666;
       font-size: 14px;
     }
 
-    .tagline span { color: #de5833; }
+    .privacy-icon {
+      color: #de5833;
+    }
 
     @media (max-width: 500px) {
-      main { padding-top: 16vh; }
-      .brand { font-size: 36px; }
-      .duck { font-size: 34px; }
-      .tab { width: 185px; }
+      main {
+        padding-top: 20vh;
+      }
+
+      .logo {
+        font-size: 36px;
+      }
+
+      .duck {
+        font-size: 34px;
+      }
+
+      .top-links {
+        top: 14px;
+        right: 15px;
+      }
     }
   </style>
 </head>
 
 <body>
-  <div class="tabs">
-    <div class="tab">
-      <span class="tab-mark"></span>
-      <span>New Tab</span>
-      <span class="tab-close">×</span>
-    </div>
-    <span style="font-size:20px;color:#555">+</span>
-  </div>
-
-  <div class="toolbar">
-    <div class="nav">
-      <span title="Back">‹</span>
-      <span title="Forward">›</span>
-      <span title="Reload">⟳</span>
-    </div>
-
-    <div class="address">
-      <span>🔒</span>
-      <input value="duckduckgo.com" aria-label="Address bar">
-      <span>☆</span>
-    </div>
-
-    <span class="browser-menu">⋮</span>
-  </div>
+  <nav class="top-links" aria-label="Site navigation">
+    <a href="https://duckduckgo.com/about">About</a>
+    <a href="https://duckduckgo.com/app">App</a>
+    <button class="menu-button" aria-label="Menu">☰</button>
+  </nav>
 
   <main>
-    <div class="brand">
-      <span class="duck">🦆</span>
+    <div class="logo" aria-label="DuckDuckGo">
+      <span class="duck" aria-hidden="true">🦆</span>
       <span>DuckDuckGo</span>
     </div>
 
-    <form class="search" id="searchForm">
+    <form class="search-form" id="searchForm" role="search">
       <input
         id="query"
         type="search"
         placeholder="Search the web without being tracked"
         aria-label="Search the web"
-        autofocus
+        autocomplete="off"
       >
       <button type="submit" aria-label="Search">⌕</button>
     </form>
 
-    <div class="tagline"><span>🛡</span> Search privately</div>
+    <div class="privacy-message">
+      <span class="privacy-icon">●</span> Search privately
+    </div>
   </main>
 
   <script>
-    document.getElementById("searchForm").addEventListener("submit", function (event) {
-      event.preventDefault();
+    document
+      .getElementById("searchForm")
+      .addEventListener("submit", function (event) {
+        event.preventDefault();
 
-      const query = document.getElementById("query").value.trim();
-      if (query) {
-        window.location.href =
-          "https://duckduckgo.com/?q=" + encodeURIComponent(query);
-      }
-    });
+        const query = document.getElementById("query").value.trim();
+
+        if (query) {
+          window.location.href =
+            "https://duckduckgo.com/?q=" + encodeURIComponent(query);
+        }
+      });
   </script>
 </body>
 </html>
