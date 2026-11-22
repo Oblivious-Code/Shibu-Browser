@@ -1,309 +1,231 @@
-Here’s a single-file mockup combining a Chrome-style browser frame with a DuckDuckGo-inspired search page. Save it as `index.html` and open it in a browser. The search box submits queries to DuckDuckGo.
-
-```html
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Search</title>
-  <style>
-    :root {
-      color-scheme: light;
-      font-family: Arial, sans-serif;
-      background: #f1f3f4;
-      color: #202124;
-    }
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>DuckDuckGo — Search</title>
 
+  <style>
     * { box-sizing: border-box; }
 
-    body { margin: 0; }
-
-    /* Chrome-inspired browser frame */
-    .browser {
-      min-height: 100vh;
+    body {
+      margin: 0;
+      font-family: Arial, Helvetica, sans-serif;
+      color: #333;
       background: #fff;
-      overflow: hidden;
     }
 
-    .tab-bar {
-      height: 42px;
+    /* Chrome-style frame */
+    .tabs {
+      height: 40px;
       display: flex;
       align-items: end;
       gap: 8px;
-      padding: 6px 10px 0;
+      padding: 5px 10px 0;
       background: #dee1e6;
     }
 
     .tab {
       width: 230px;
-      height: 36px;
+      height: 35px;
       display: flex;
       align-items: center;
-      gap: 10px;
-      padding: 0 14px;
+      gap: 9px;
+      padding: 0 13px;
       border-radius: 10px 10px 0 0;
       background: #fff;
+      color: #444;
       font-size: 13px;
     }
 
-    .tab-icon {
-      width: 16px;
-      height: 16px;
+    .tab-mark {
+      width: 15px;
+      height: 15px;
       border-radius: 50%;
       background: #de5833;
     }
 
-    .window-controls {
-      margin-left: auto;
-      align-self: center;
-      display: flex;
-      gap: 18px;
-      padding: 0 12px;
-      color: #5f6368;
-      font-size: 13px;
-    }
+    .tab-close { margin-left: auto; }
 
     .toolbar {
-      height: 54px;
+      height: 52px;
       display: flex;
       align-items: center;
-      gap: 12px;
+      gap: 13px;
       padding: 0 16px;
       background: #fff;
     }
 
-    .nav-buttons {
+    .nav {
       display: flex;
-      gap: 16px;
+      gap: 15px;
       color: #5f6368;
-      font-size: 20px;
+      font-size: 21px;
     }
 
-    .address-bar {
-      height: 36px;
+    .address {
+      height: 35px;
       flex: 1;
       display: flex;
       align-items: center;
-      gap: 10px;
+      gap: 9px;
       padding: 0 14px;
-      border-radius: 22px;
+      border-radius: 20px;
       background: #f1f3f4;
       color: #5f6368;
       font-size: 13px;
     }
 
-    .address-bar input {
+    .address input {
       width: 100%;
       border: 0;
       outline: 0;
       background: transparent;
-      color: inherit;
       font: inherit;
+      color: inherit;
     }
 
-    .toolbar-actions {
-      display: flex;
-      gap: 18px;
+    .browser-menu {
       color: #5f6368;
-      font-size: 18px;
+      font-size: 21px;
     }
 
-    /* Search page */
+    /* DuckDuckGo-inspired homepage */
     main {
-      min-height: calc(100vh - 96px);
+      min-height: calc(100vh - 92px);
       display: flex;
       flex-direction: column;
       align-items: center;
-      padding: 14vh 20px 40px;
-      background: #fff;
+      padding: 19vh 20px 40px;
     }
 
-    .logo {
+    .brand {
       display: flex;
       align-items: center;
-      gap: 4px;
-      margin-bottom: 28px;
+      gap: 7px;
+      margin-bottom: 25px;
       color: #de5833;
-      font-size: clamp(44px, 8vw, 70px);
+      font-size: 42px;
       font-weight: 700;
-      letter-spacing: -5px;
+      letter-spacing: -1.8px;
     }
 
     .duck {
-      font-size: 0.78em;
+      font-size: 39px;
+      line-height: 1;
       letter-spacing: 0;
     }
 
-    .search-form {
-      width: min(100%, 650px);
-      height: 54px;
+    .search {
+      width: min(100%, 630px);
+      height: 52px;
       display: flex;
       align-items: center;
-      gap: 12px;
-      padding: 0 18px;
-      border: 1px solid #dfe1e5;
+      padding: 5px 6px 5px 18px;
+      border: 1px solid #c9c9c9;
       border-radius: 28px;
-      box-shadow: 0 2px 8px #00000012;
-      transition: box-shadow 0.2s, border-color 0.2s;
+      box-shadow: 0 1px 3px #00000012;
     }
 
-    .search-form:focus-within {
-      border-color: transparent;
-      box-shadow: 0 3px 12px #00000025;
+    .search:focus-within {
+      border-color: #999;
+      box-shadow: 0 2px 6px #00000020;
     }
 
-    .search-form input {
+    .search input {
       flex: 1;
       min-width: 0;
       border: 0;
       outline: 0;
-      color: #202124;
+      background: transparent;
+      color: #333;
       font-size: 16px;
     }
 
-    .search-icon { color: #777; font-size: 19px; }
-
-    .search-form button {
+    .search button {
+      width: 40px;
+      height: 40px;
       border: 0;
-      background: transparent;
-      color: #de5833;
+      border-radius: 50%;
+      background: #de5833;
+      color: white;
       font-size: 20px;
       cursor: pointer;
     }
 
-    .quick-links {
-      width: min(100%, 650px);
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(110px, 1fr));
-      gap: 14px;
-      margin-top: 32px;
-    }
-
-    .quick-link {
-      min-height: 90px;
-      display: grid;
-      place-items: center;
-      align-content: center;
-      gap: 10px;
-      border-radius: 10px;
-      color: #3c4043;
-      text-decoration: none;
-      font-size: 13px;
-    }
-
-    .quick-link:hover { background: #f5f6f7; }
-
-    .shortcut-icon {
-      width: 42px;
-      height: 42px;
-      display: grid;
-      place-items: center;
-      border-radius: 50%;
-      background: #f1f3f4;
-      font-size: 18px;
-    }
-
-    .privacy-note {
-      margin-top: 52px;
+    .tagline {
+      margin-top: 22px;
       color: #666;
       font-size: 14px;
     }
 
-    .privacy-note span { color: #de5833; }
+    .tagline span { color: #de5833; }
 
     @media (max-width: 500px) {
-      .tab { width: 180px; }
-      .window-controls { display: none; }
-      .toolbar { gap: 8px; padding: 0 10px; }
-      .nav-buttons { gap: 10px; }
-      .toolbar-actions { gap: 10px; }
-      main { padding-top: 12vh; }
+      main { padding-top: 16vh; }
+      .brand { font-size: 36px; }
+      .duck { font-size: 34px; }
+      .tab { width: 185px; }
     }
   </style>
 </head>
+
 <body>
-  <div class="browser">
-    <div class="tab-bar">
-      <div class="tab">
-        <span class="tab-icon"></span>
-        <span>New Tab</span>
-        <span style="margin-left:auto">×</span>
-      </div>
-      <span style="font-size:20px;color:#5f6368">+</span>
-      <div class="window-controls"><span>−</span><span>□</span><span>×</span></div>
+  <div class="tabs">
+    <div class="tab">
+      <span class="tab-mark"></span>
+      <span>New Tab</span>
+      <span class="tab-close">×</span>
     </div>
-
-    <div class="toolbar">
-      <div class="nav-buttons" aria-label="Browser navigation">
-        <span title="Back">‹</span>
-        <span title="Forward">›</span>
-        <span title="Reload">⟳</span>
-      </div>
-      <div class="address-bar">
-        <span>🔒</span>
-        <input id="address" aria-label="Address bar" value="Search the web privately" />
-        <span>☆</span>
-      </div>
-      <div class="toolbar-actions"><span>🧩</span><span>⋮</span></div>
-    </div>
-
-    <main>
-      <div class="logo" aria-label="DuckDuckGo">
-        <span class="duck">🦆</span><span>duckduckgo</span>
-      </div>
-
-      <form class="search-form" id="searchForm">
-        <span class="search-icon">⌕</span>
-        <input id="query" type="search" placeholder="Search the web" autocomplete="off" />
-        <button type="submit" aria-label="Search">→</button>
-      </form>
-
-      <div class="quick-links">
-        <a class="quick-link" href="https://www.wikipedia.org">
-          <span class="shortcut-icon">W</span><span>Wikipedia</span>
-        </a>
-        <a class="quick-link" href="https://www.youtube.com">
-          <span class="shortcut-icon">▶</span><span>YouTube</span>
-        </a>
-        <a class="quick-link" href="https://www.github.com">
-          <span class="shortcut-icon">⌘</span><span>GitHub</span>
-        </a>
-        <a class="quick-link" href="https://news.ycombinator.com">
-          <span class="shortcut-icon">Y</span><span>Hacker News</span>
-        </a>
-      </div>
-
-      <p class="privacy-note"><span>🛡</span> Search privately. Browse freely.</p>
-    </main>
+    <span style="font-size:20px;color:#555">+</span>
   </div>
 
+  <div class="toolbar">
+    <div class="nav">
+      <span title="Back">‹</span>
+      <span title="Forward">›</span>
+      <span title="Reload">⟳</span>
+    </div>
+
+    <div class="address">
+      <span>🔒</span>
+      <input value="duckduckgo.com" aria-label="Address bar">
+      <span>☆</span>
+    </div>
+
+    <span class="browser-menu">⋮</span>
+  </div>
+
+  <main>
+    <div class="brand">
+      <span class="duck">🦆</span>
+      <span>DuckDuckGo</span>
+    </div>
+
+    <form class="search" id="searchForm">
+      <input
+        id="query"
+        type="search"
+        placeholder="Search the web without being tracked"
+        aria-label="Search the web"
+        autofocus
+      >
+      <button type="submit" aria-label="Search">⌕</button>
+    </form>
+
+    <div class="tagline"><span>🛡</span> Search privately</div>
+  </main>
+
   <script>
-    const form = document.getElementById("searchForm");
-    const query = document.getElementById("query");
-    const address = document.getElementById("address");
-
-    form.addEventListener("submit", (event) => {
+    document.getElementById("searchForm").addEventListener("submit", function (event) {
       event.preventDefault();
-      const text = query.value.trim();
-      if (!text) {
-        query.focus();
-        return;
-      }
-      window.location.href =
-        "https://duckduckgo.com/?q=" + encodeURIComponent(text);
-    });
 
-    address.addEventListener("keydown", (event) => {
-      if (event.key === "Enter") {
-        const text = address.value.trim();
-        if (text) {
-          window.location.href =
-            "https://duckduckgo.com/?q=" + encodeURIComponent(text);
-        }
+      const query = document.getElementById("query").value.trim();
+      if (query) {
+        window.location.href =
+          "https://duckduckgo.com/?q=" + encodeURIComponent(query);
       }
     });
   </script>
 </body>
 </html>
-```
