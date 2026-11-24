@@ -197,7 +197,7 @@
       e.preventDefault();
       const q = input.value.trim();
       if (!q) return input.focus();
-      window.location.href = (mode === "ai" ? "https://chatgpt.com" : "https://duckduckgo.com/?q=") + encodeURIComponent(q);
+      window.location.href = (mode === "ai" ? "https://do-shibu.netlify.app/?q=" : "https://duckduckgo.com/?q=") + encodeURIComponent(q);
     };
   </script>
 </body>
