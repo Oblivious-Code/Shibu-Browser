@@ -73,7 +73,28 @@
   <div class="drawer-backdrop" id="drawerBackdrop"></div>
   <aside class="settings-drawer" id="settingsDrawer">
     <div class="drawer-header">
-      <h2>🐕 FetchShibu Settings</h2>
+      <h2> <svg class="logo" viewBox="0 0 68 68" width="48" height="48" aria-hidden="true">
+        <circle cx="34" cy="34" r="31" fill="#ffffff" stroke="#de5833" stroke-width="1.5"/>
+        <circle cx="34" cy="34" r="28" fill="#de5833"/>
+        <circle cx="34" cy="34" r="25" fill="none" stroke="#ff825c" stroke-width="1" opacity="0.45"/>
+        <polygon points="15,31 19,11 31,24" fill="#f09336"/>
+        <polygon points="53,31 49,11 37,24" fill="#f09336"/>
+        <polygon points="18.5,28 20.5,16 27.5,24" fill="#ffe6c7"/>
+        <polygon points="49.5,28 47.5,16 40.5,24" fill="#ffe6c7"/>
+        <path d="M16,35 C16,24 24,20 34,20 C44,20 52,24 52,35 C52,46 44,53 34,53 C24,53 16,46 16,35 Z" fill="#f09336"/>
+        <path d="M16.2,36 C16.2,45.8 24,52.8 34,52.8 C44,52.8 51.8,45.8 51.8,36 C46,35.5 41.2,39 34,39 C26.8,39 22,35.5 16.2,36 Z" fill="#fff8ef"/>
+        <path d="M22,27.5 L27.5,29" stroke="#fff8ef" stroke-width="2.2" stroke-linecap="round"/>
+        <path d="M46,27.5 L40.5,29" stroke="#fff8ef" stroke-width="2.2" stroke-linecap="round"/>
+        <circle cx="25.5" cy="32.5" r="2.6" fill="#222"/>
+        <circle cx="42.5" cy="32.5" r="2.6" fill="#222"/>
+        <circle cx="24.7" cy="31.7" r="0.9" fill="#fff"/>
+        <circle cx="41.7" cy="31.7" r="0.9" fill="#fff"/>
+        <ellipse cx="34" cy="39.5" rx="3.2" ry="2.2" fill="#222"/>
+        <path d="M30.5,43.5 Q34,46.2 37.5,43.5" fill="none" stroke="#222" stroke-width="2" stroke-linecap="round"/>
+        <polygon points="34,54 27,50.5 27,57.5" fill="#2b9eb3" stroke="#ffffff" stroke-width="1.2" stroke-linejoin="round"/>
+        <polygon points="34,54 41,50.5 41,57.5" fill="#2b9eb3" stroke="#ffffff" stroke-width="1.2" stroke-linejoin="round"/>
+        <circle cx="34" cy="54" r="2" fill="#1f7a8c" stroke="#ffffff" stroke-width="1"/>
+      </svg> FetchShibu Settings</h2>
       <button class="close-drawer" id="closeDrawer">✕</button>
     </div>
     <div class="setting-group">
@@ -187,7 +208,7 @@
       searchMode.classList.toggle("active", m === "search");
       aiMode.classList.toggle("active", m === "ai");
       input.placeholder = m === "ai" ? "Ask anything..." : "Search the web";
-      hint.textContent = m === "ai" ? "Ask AI in ChatGPT." : "Private search, less tracking.";
+      hint.textContent = m === "ai" ? "Ask AI in Shibu AI." : "Private chat, less tracking.";
       input.focus();
     }
     searchMode.onclick = () => setMode("search");
