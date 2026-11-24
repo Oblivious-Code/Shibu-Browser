@@ -5,17 +5,44 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>FetchShibu Browser</title>
 
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Shantell+Sans:BNCE,wght@0..100,300..800&display=swap" rel="stylesheet">
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://w3.org' viewBox='0 0 68 68'%3E%3Ccircle cx='34' cy='34' r='31' fill='%23ffffff' stroke='%23de5833' stroke-width='1.5'/%3E%3Ccircle cx='34' cy='34' r='28' fill='%23de5833'/%3E%3Cpolygon points='15,31 19,11 31,24' fill='%23f09336'/%3E%3Cpolygon points='53,31 49,11 37,24' fill='%23f09336'/%3E%3Cpath d='M16,35 C16,24 24,20 34,20 C44,20 52,24 52,35 C52,46 44,53 34,53 C24,53 16,46 16,35 Z' fill='%23f09336'/%3E%3Cpath d='M16.2,36 C16.2,45.8 24,52.8 34,52.8 C44,52.8 51.8,45.8 51.8,36 C46,35.5 41.2,39 34,39 C26.8,39 22,35.5 16.2,36 Z' fill='%23fff8ef'/%3E%3Ccircle cx='25.5' cy='32.5' r='2.6' fill='%23222'/%3E%3Ccircle cx='42.5' cy='32.5' r='2.6' fill='%23222'/%3E%3Cellipse cx='34' cy='39.5' rx='3.2' ry='2.2' fill='%23222'/%3E%3C/svg%3E">
+
+  <link rel="preconnect" href="https://googleapis.com">
+  <link rel="preconnect" href="https://gstatic.com" crossorigin>
+  <link href="https://googleapis.com/css2?family=Shantell+Sans:BNCE,wght@0..100,300..800&display=swap" rel="stylesheet">
 
   <style>
     :root {
+      --bg: #ffffff;
+      --surface: #ffffff;
+      --surface-alt: #f3f3f3;
+      --text: #222222;
+      --text-muted: #555555;
+      --text-subtle: #888888;
+      --border: #dedede;
+      --border-light: #eeeeee;
+      --shadow: #0000000c;
+      --accent: #de5833;
+      --bnce: 50;
+      --wght: 550;
+
       font-family: "Shantell Sans", Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-      font-weight: 550;
-      font-variation-settings: "BNCE" 50;
-      color: #222;
-      background: #fff;
+      font-weight: var(--wght);
+      font-variation-settings: "BNCE" var(--bnce);
+      color: var(--text);
+      background: var(--bg);
+    }
+
+    :root.dark {
+      --bg: #18181b;
+      --surface: #222226;
+      --surface-alt: #2d2d32;
+      --text: #f4f4f5;
+      --text-muted: #b4b4bb;
+      --text-subtle: #8a8a93;
+      --border: #34343a;
+      --border-light: #2d2d32;
+      --shadow: #00000040;
     }
 
     * { box-sizing: border-box; }
@@ -23,12 +50,15 @@
     body {
       margin: 0;
       min-height: 100vh;
+      background: var(--bg);
+      color: var(--text);
+      transition: background 0.2s ease, color 0.2s ease;
     }
 
     body, button, input, textarea, select {
       font-family: inherit;
-      font-weight: inherit;
-      font-variation-settings: inherit;
+      font-weight: var(--wght);
+      font-variation-settings: "BNCE" var(--bnce);
     }
 
     .top-nav {
@@ -41,22 +71,28 @@
     }
 
     .top-nav a {
-      color: #555;
+      color: var(--text-muted);
       text-decoration: none;
       font-size: 14px;
     }
 
-    .top-nav a:hover { color: #de5833; }
+    .top-nav a:hover { color: var(--accent); }
 
     .menu-button {
       width: 38px;
       height: 38px;
-      border: 1px solid #eee;
+      border: 1px solid var(--border-light);
       border-radius: 50%;
-      background: #fff;
-      color: #555;
+      background: var(--surface);
+      color: var(--text-muted);
       font-size: 19px;
       cursor: pointer;
+      transition: border-color 0.2s, transform 0.2s;
+    }
+
+    .menu-button:hover {
+      border-color: var(--accent);
+      color: var(--accent);
     }
 
     main {
@@ -70,17 +106,23 @@
     .brand {
       display: flex;
       align-items: center;
-      gap: 9px;
+      gap: 12px;
       margin-bottom: 32px;
-      color: #de5833;
-      font-size: clamp(34px, 7vw, 46px);
+      color: var(--accent);
+      font-size: clamp(32px, 7vw, 46px);
       font-weight: 700;
       letter-spacing: -1px;
     }
 
-    .duck {
-      font-size: 0.88em;
-      letter-spacing: 0;
+    .logo {
+      display: block;
+      flex-shrink: 0;
+      filter: drop-shadow(0 3px 8px rgba(0, 0, 0, 0.16));
+      transition: transform 0.2s ease;
+    }
+
+    .brand:hover .logo {
+      transform: rotate(-6deg) scale(1.07);
     }
 
     .search-box {
@@ -90,20 +132,20 @@
       align-items: center;
       gap: 10px;
       padding: 6px 7px 6px 19px;
-      border: 1px solid #dedede;
+      border: 1px solid var(--border);
       border-radius: 18px;
-      background: #fff;
-      box-shadow: 0 3px 14px #0000000c;
-      transition: border-color .2s, box-shadow .2s;
+      background: var(--surface);
+      box-shadow: 0 3px 14px var(--shadow);
+      transition: border-color .2s, box-shadow .2s, background .2s;
     }
 
     .search-box:focus-within {
-      border-color: #bbb;
-      box-shadow: 0 5px 20px #00000014;
+      border-color: var(--accent);
+      box-shadow: 0 5px 20px var(--shadow);
     }
 
     .search-icon {
-      color: #888;
+      color: var(--text-subtle);
       font-size: 20px;
     }
 
@@ -114,12 +156,11 @@
       border: 0;
       outline: 0;
       background: transparent;
-      color: #222;
-      font-family: inherit;
+      color: var(--text);
       font-size: 16px;
     }
 
-    .search-box input::placeholder { color: #999; }
+    .search-box input::placeholder { color: var(--text-subtle); }
 
     .mode-switch {
       display: flex;
@@ -127,7 +168,7 @@
       gap: 3px;
       padding: 4px;
       border-radius: 13px;
-      background: #f3f3f3;
+      background: var(--surface-alt);
     }
 
     .mode-switch button {
@@ -136,8 +177,7 @@
       border: 0;
       border-radius: 10px;
       background: transparent;
-      color: #555;
-      font-family: inherit;
+      color: var(--text-muted);
       font-size: 13px;
       font-weight: 600;
       cursor: pointer;
@@ -145,19 +185,165 @@
     }
 
     .mode-switch button.active {
-      background: #fff;
-      color: #333;
+      background: var(--surface);
+      color: var(--text);
       box-shadow: 0 1px 4px #00000018;
     }
 
     .mode-switch button.ai.active {
-      color: #bd482b;
+      color: var(--accent);
     }
 
     .hint {
       margin-top: 20px;
-      color: #888;
+      color: var(--text-subtle);
       font-size: 13px;
+    }
+
+    .drawer-backdrop {
+      position: fixed;
+      inset: 0;
+      background: rgba(0, 0, 0, 0.3);
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.25s ease;
+      z-index: 90;
+    }
+
+    .drawer-backdrop.open {
+      opacity: 1;
+      pointer-events: auto;
+    }
+
+    .settings-drawer {
+      position: fixed;
+      top: 0;
+      right: 0;
+      width: min(320px, 88vw);
+      height: 100vh;
+      background: var(--surface);
+      border-left: 1px solid var(--border-light);
+      box-shadow: -8px 0 28px rgba(0, 0, 0, 0.14);
+      padding: 22px;
+      display: flex;
+      flex-direction: column;
+      gap: 22px;
+      transform: translateX(100%);
+      transition: transform 0.25s ease, background 0.2s ease;
+      z-index: 100;
+    }
+
+    .settings-drawer.open {
+      transform: translateX(0);
+    }
+
+    .drawer-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding-bottom: 12px;
+      border-bottom: 1px solid var(--border-light);
+    }
+
+    .drawer-header h2 {
+      margin: 0;
+      font-size: 18px;
+      color: var(--accent);
+    }
+
+    .close-drawer {
+      width: 32px;
+      height: 32px;
+      border: 1px solid var(--border-light);
+      border-radius: 50%;
+      background: var(--surface-alt);
+      color: var(--text);
+      font-size: 16px;
+      cursor: pointer;
+    }
+
+    .setting-group {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+
+    .setting-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      font-size: 14px;
+    }
+
+    .setting-value {
+      color: var(--accent);
+      font-size: 13px;
+    }
+
+    .switch {
+      position: relative;
+      width: 46px;
+      height: 26px;
+    }
+
+    .switch input {
+      opacity: 0;
+      width: 0;
+      height: 0;
+    }
+
+    .slider-toggle {
+      position: absolute;
+      inset: 0;
+      background: var(--surface-alt);
+      border: 1px solid var(--border);
+      border-radius: 999px;
+      cursor: pointer;
+      transition: background 0.2s;
+    }
+
+    .slider-toggle::before {
+      content: "";
+      position: absolute;
+      width: 18px;
+      height: 18px;
+      left: 3px;
+      top: 3px;
+      border-radius: 50%;
+      background: var(--text-muted);
+      transition: transform 0.2s, background 0.2s;
+    }
+
+    .switch input:checked + .slider-toggle {
+      background: var(--accent);
+      border-color: var(--accent);
+    }
+
+    .switch input:checked + .slider-toggle::before {
+      transform: translateX(20px);
+      background: #ffffff;
+    }
+
+    input[type="range"] {
+      width: 100%;
+      accent-color: var(--accent);
+      cursor: pointer;
+    }
+
+    .reset-btn {
+      margin-top: auto;
+      padding: 10px;
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      background: var(--surface-alt);
+      color: var(--text);
+      font-size: 13px;
+      cursor: pointer;
+    }
+
+    .reset-btn:hover {
+      border-color: var(--accent);
+      color: var(--accent);
     }
 
     @media (max-width: 520px) {
@@ -189,54 +375,78 @@
 
 <body>
   <nav class="top-nav" aria-label="Site navigation">
-    <a href="https://duckduckgo.com/about">About</a>
-    <a href="https://duckduckgo.com/app">App</a>
-    <button class="menu-button" aria-label="Menu">☰</button>
+    <a href="https://duckduckgo.com">About</a>
+    <a href="https://github.io" target="_blank" rel="noopener">Font Maker</a>
+    <button class="menu-button" id="menuBtn" aria-label="Open settings menu">☰</button>
   </nav>
+
+  <!-- Settings Drawer -->
+  <div class="drawer-backdrop" id="drawerBackdrop"></div>
+  <aside class="settings-drawer" id="settingsDrawer" aria-label="Browser settings">
+    <div class="drawer-header">
+      <h2>🐕 FetchShibu Settings</h2>
+      <button class="close-drawer" id="closeDrawer" aria-label="Close settings">✕</button>
+    </div>
+
+    <div class="setting-row">
+      <span>Dark Mode</span>
+      <label class="switch">
+        <input type="checkbox" id="darkModeToggle">
+        <span class="slider-toggle"></span>
+      </label>
+    </div>
+
+    <div class="setting-group">
+      <div class="setting-row">
+        <label for="bounceSlider">Font Bounce</label>
+        <span class="setting-value" id="bounceVal">50</span>
+      </div>
+      <input type="range" id="bounceSlider" min="0" max="100" value="50">
+    </div>
+
+    <div class="setting-group">
+      <div class="setting-row">
+        <label for="weightSlider">Font Weight</label>
+        <span class="setting-value" id="weightVal">550</span>
+      </div>
+      <input type="range" id="weightSlider" min="300" max="800" step="10" value="550">
+    </div>
+
+    <button class="reset-btn" type="button" id="resetSettings">Reset to Defaults</button>
+  </aside>
 
   <main>
     <div class="brand">
-      <span class="svg" aria-hidden="true"><svg class="logo" viewBox="0 0 68 68" width="48" height="48" aria-hidden="true">
-  <!-- White sticker outline on outer badge only -->
-  <circle cx="34" cy="34" r="31" fill="#ffffff" stroke="#de5833" stroke-width="1.5"/>
-  <!-- Outer badge -->
-  <circle cx="34" cy="34" r="28" fill="#de5833"/>
-  <!-- Subtle inner ring -->
-  <circle cx="34" cy="34" r="25" fill="none" stroke="#ff825c" stroke-width="1" opacity="0.45"/>
+      <span class="svg" aria-hidden="true">
+        <svg class="logo" viewBox="0 0 68 68" width="48" height="48" aria-hidden="true">
+          <circle cx="34" cy="34" r="31" fill="#ffffff" stroke="#de5833" stroke-width="1.5"/>
+          <circle cx="34" cy="34" r="28" fill="#de5833"/>
+          <circle cx="34" cy="34" r="25" fill="none" stroke="#ff825c" stroke-width="1" opacity="0.45"/>
 
-  <!-- Smooth Shiba ears (no white outline) -->
-  <polygon points="15,31 19,11 31,24" fill="#f09336"/>
-  <polygon points="53,31 49,11 37,24" fill="#f09336"/>
-  <!-- Inner ear triangles -->
-  <polygon points="18.5,28 20.5,16 27.5,24" fill="#ffe6c7"/>
-  <polygon points="49.5,28 47.5,16 40.5,24" fill="#ffe6c7"/>
+          <polygon points="15,31 19,11 31,24" fill="#f09336"/>
+          <polygon points="53,31 49,11 37,24" fill="#f09336"/>
+          <polygon points="18.5,28 20.5,16 27.5,24" fill="#ffe6c7"/>
+          <polygon points="49.5,28 47.5,16 40.5,24" fill="#ffe6c7"/>
 
-  <!-- Smooth Shiba head (no white outline) -->
-  <path d="M16,35 C16,24 24,20 34,20 C44,20 52,24 52,35 C52,46 44,53 34,53 C24,53 16,46 16,35 Z" fill="#f09336"/>
+          <path d="M16,35 C16,24 24,20 34,20 C44,20 52,24 52,35 C52,46 44,53 34,53 C24,53 16,46 16,35 Z" fill="#f09336"/>
+          <path d="M16.2,36 C16.2,45.8 24,52.8 34,52.8 C44,52.8 51.8,45.8 51.8,36 C46,35.5 41.2,39 34,39 C26.8,39 22,35.5 16.2,36 Z" fill="#fff8ef"/>
 
-  <!-- Cream cheeks & muzzle -->
-  <path d="M16.2,36 C16.2,45.8 24,52.8 34,52.8 C44,52.8 51.8,45.8 51.8,36 C46,35.5 41.2,39 34,39 C26.8,39 22,35.5 16.2,36 Z" fill="#fff8ef"/>
+          <path d="M22,27.5 L27.5,29" stroke="#fff8ef" stroke-width="2.2" stroke-linecap="round"/>
+          <path d="M46,27.5 L40.5,29" stroke="#fff8ef" stroke-width="2.2" stroke-linecap="round"/>
 
-  <!-- Confident eyebrows -->
-  <path d="M22,27.5 L27.5,29" stroke="#fff8ef" stroke-width="2.2" stroke-linecap="round"/>
-  <path d="M46,27.5 L40.5,29" stroke="#fff8ef" stroke-width="2.2" stroke-linecap="round"/>
+          <circle cx="25.5" cy="32.5" r="2.6" fill="#222"/>
+          <circle cx="42.5" cy="32.5" r="2.6" fill="#222"/>
+          <circle cx="24.7" cy="31.7" r="0.9" fill="#fff"/>
+          <circle cx="41.7" cy="31.7" r="0.9" fill="#fff"/>
 
-  <!-- Eyes with shine -->
-  <circle cx="25.5" cy="32.5" r="2.6" fill="#222"/>
-  <circle cx="42.5" cy="32.5" r="2.6" fill="#222"/>
-  <circle cx="24.7" cy="31.7" r="0.9" fill="#fff"/>
-  <circle cx="41.7" cy="31.7" r="0.9" fill="#fff"/>
+          <ellipse cx="34" cy="39.5" rx="3.2" ry="2.2" fill="#222"/>
+          <path d="M30.5,43.5 Q34,46.2 37.5,43.5" fill="none" stroke="#222" stroke-width="2" stroke-linecap="round"/>
 
-  <!-- Nose & smirk -->
-  <ellipse cx="34" cy="39.5" rx="3.2" ry="2.2" fill="#222"/>
-  <path d="M30.5,43.5 Q34,46.2 37.5,43.5" fill="none" stroke="#222" stroke-width="2" stroke-linecap="round"/>
-
-  <!-- Teal bowtie -->
-  <polygon points="34,54 27,50.5 27,57.5" fill="#2b9eb3" stroke="#ffffff" stroke-width="1.2" stroke-linejoin="round"/>
-  <polygon points="34,54 41,50.5 41,57.5" fill="#2b9eb3" stroke="#ffffff" stroke-width="1.2" stroke-linejoin="round"/>
-  <circle cx="34" cy="54" r="2" fill="#1f7a8c" stroke="#ffffff" stroke-width="1"/>
-</svg>
-</span>
+          <polygon points="34,54 27,50.5 27,57.5" fill="#2b9eb3" stroke="#ffffff" stroke-width="1.2" stroke-linejoin="round"/>
+          <polygon points="34,54 41,50.5 41,57.5" fill="#2b9eb3" stroke="#ffffff" stroke-width="1.2" stroke-linejoin="round"/>
+          <circle cx="34" cy="54" r="2" fill="#1f7a8c" stroke="#ffffff" stroke-width="1"/>
+        </svg>
+      </span>
       <span>Fetch Shibu Browser</span>
     </div>
 
@@ -267,6 +477,83 @@
     const aiMode = document.getElementById("aiMode");
     const hint = document.getElementById("hint");
 
+    // Drawer & Settings Elements
+    const menuBtn = document.getElementById("menuBtn");
+    const closeDrawer = document.getElementById("closeDrawer");
+    const drawerBackdrop = document.getElementById("drawerBackdrop");
+    const settingsDrawer = document.getElementById("settingsDrawer");
+    const darkModeToggle = document.getElementById("darkModeToggle");
+    const bounceSlider = document.getElementById("bounceSlider");
+    const bounceVal = document.getElementById("bounceVal");
+    const weightSlider = document.getElementById("weightSlider");
+    const weightVal = document.getElementById("weightVal");
+    const resetSettings = document.getElementById("resetSettings");
+    const root = document.documentElement;
+
+    function openDrawer() {
+      settingsDrawer.classList.add("open");
+      drawerBackdrop.classList.add("open");
+    }
+
+    function hideDrawer() {
+      settingsDrawer.classList.remove("open");
+      drawerBackdrop.classList.remove("open");
+    }
+
+    menuBtn.addEventListener("click", openDrawer);
+    closeDrawer.addEventListener("click", hideDrawer);
+    drawerBackdrop.addEventListener("click", hideDrawer);
+    document.addEventListener("keydown", (e) => {
+      if (e.key === "Escape") hideDrawer();
+    });
+
+    function applySettings(dark, bounce, weight) {
+      root.classList.toggle("dark", dark);
+      darkModeToggle.checked = dark;
+
+      root.style.setProperty("--bnce", bounce);
+      bounceSlider.value = bounce;
+      bounceVal.textContent = bounce;
+
+      root.style.setProperty("--wght", weight);
+      weightSlider.value = weight;
+      weightVal.textContent = weight;
+    }
+
+    function saveSettings() {
+      localStorage.setItem("fetchshibu_settings", JSON.stringify({
+        dark: darkModeToggle.checked,
+        bounce: bounceSlider.value,
+        weight: weightSlider.value
+      }));
+    }
+
+    const saved = JSON.parse(localStorage.getItem("fetchshibu_settings") || "null");
+    if (saved) {
+      applySettings(saved.dark, saved.bounce, saved.weight);
+    }
+
+    darkModeToggle.addEventListener("change", () => {
+      applySettings(darkModeToggle.checked, bounceSlider.value, weightSlider.value);
+      saveSettings();
+    });
+
+    bounceSlider.addEventListener("input", () => {
+      applySettings(darkModeToggle.checked, bounceSlider.value, weightSlider.value);
+      saveSettings();
+    });
+
+    weightSlider.addEventListener("input", () => {
+      applySettings(darkModeToggle.checked, bounceSlider.value, weightSlider.value);
+      saveSettings();
+    });
+
+    resetSettings.addEventListener("click", () => {
+      applySettings(false, 50, 550);
+      localStorage.removeItem("fetchshibu_settings");
+    });
+
+    // Search & AI Mode Switch
     let mode = "search";
 
     function setMode(newMode) {
@@ -296,10 +583,10 @@
 
       if (mode === "ai") {
         window.location.href =
-          "https://chatgpt.com/?q=" + encodeURIComponent(query);
+          "https://chatgpt.com" + encodeURIComponent(query);
       } else {
         window.location.href =
-          "https://duckduckgo.com/?q=" + encodeURIComponent(query);
+          "https://duckduckgo.com" + encodeURIComponent(query);
       }
     });
   </script>
