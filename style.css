@@ -1,5 +1,0 @@
-*:not([class*="icon"]):not([class*="fa-"]):not(.material-icons) {
-  font-family: "Shantell Sans", sans-serif !important;
-  font-weight: 550 !important;
-  font-variation-settings: "BNCE" 50 !important;
-}
