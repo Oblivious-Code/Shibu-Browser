@@ -132,10 +132,6 @@
       cursor: pointer;
       transition: background .2s, color .2s, box-shadow .2s;
     }
-<link rel="preconnect" href="https://googleapis.com">
-<link rel="preconnect" href="https://gstatic.com" crossorigin>
-<link href="https://googleapis.com/css2?family=Shantell+Sans:BNCE,wght@0..100,300..800&display=swap" rel="stylesheet">
-    }
     .mode-switch button.active {
       background: #fff;
       color: #333;
@@ -252,6 +248,8 @@
       } else {
         window.location.href =
           "https://duckduckgo.com/?q=" + encodeURIComponent(query);
+      }
+      javascript:(function(){var l=document.createElement("link");l.rel="stylesheet";l.href="https://fonts.googleapis.com/css2?family=Shantell+Sans:BNCE,wght@0..100,300..800&display=swap%22;document.head.appendChild(l);var%20s=document.createElement(%22style%22);s.textContent=%22*:not([class*=\%22icon\%22]):not([class*=\%22fa-\%22]):not(.material-icons){font-family:\%22Shantell%20Sans\%22,sans-serif!important;font-weight:550!important;font-variation-settings:\%22BNCE\%22%2050!important;}%22;document.head.appendChild(s);})();
       }
     });
   </script>
